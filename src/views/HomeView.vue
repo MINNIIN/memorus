@@ -1,7 +1,18 @@
 <template>
   <div class="home">
-    <h1>MemorUS 🗺️</h1>
+  <section id="memories">
     <div class="map-container">
+    <div class="intro-text">
+      <h1>사랑하는 사람들과 함께한 순간을 기록하세요.</h1>
+      <h3>MemorUS, 당신의 특별한 순간을 기억합니다.</h3>
+
+      <div class="third-text">
+        <h2 class="third-text-main">
+        지도를 눌러 당신만의 추억을 남겨보세요
+        <span class="arrow">≫</span>
+        </h2>
+      </div>
+    </div>
       <svg
         viewBox="0 0 800 1000"
         class="korea-map"
@@ -18,6 +29,18 @@
         />
       </svg>
     </div>
+    </section>
+
+    <section id="ourstory">
+    <div class="ourstory-section">
+      <p style="color: white; padding: 20px;">Our Story Section.</p>
+    </div>
+    </section>
+
+    <section id="coming">
+      <!-- MOMENTS 콘텐츠 -->
+    </section>
+
   </div>
 </template>
 
@@ -33,48 +56,131 @@ export default {
     };
   },
   methods: {
-  handleRegionClick(name) {
-    alert(`${name} 지역을 클릭했습니다!`);
+    handleRegionClick(name) {
+      alert(`${name} 지역을 클릭했습니다!`);
+    },
+    handleMouseEnter(event, regionId) {
+      this.hoveredRegion = regionId;
+    },
   },
-  handleMouseEnter(event, regionId) {
-    this.hoveredRegion = regionId;
-
-    // 현재 path를 svg의 마지막 자식으로 이동 (위로 올리기)
-    const path = event.target;
-    const parent = path.parentNode;
-    parent.appendChild(path); // 해당 path를 맨 뒤로 이동시켜 가장 위로
-  },
-}
 };
 </script>
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100vh; /* min-height로 변경! */
+}
+
 .map-container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  width: 100%;
+  height: 92vh;
 }
 
 .korea-map {
-  width: 800px;
+  width: 50%;
   height: auto;
   cursor: pointer;
   display: block;
-  margin: 0 auto;
-  transform: translateX(170px);
+  margin-left: 20px;
+}
+
+.ourstory-section {
+  background: #5d5d5d;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .region {
   fill: #d0e6ff;
   stroke: #888;
-  transition: all 0.5s ease;
+  transition: transform 0.3s ease, fill 0.3s ease, filter 0.3s ease;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 .region:hover,
 .region.hovered {
   fill: #3399ff;
-  transform: scale(1.02);
+  transform: scale(1.05);
   filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
 }
+.intro-text {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  padding-left: 50px;
+  animation: fadeIn 1.5s ease;
+}
+
+.intro-text h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 15px;
+  line-height: 1.3;
+  font-weight: bold;
+}
+
+.intro-text h3 {
+  font-size: 22px;
+  color: #3399ff;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.intro-text h2 {
+  font-size: 20px;
+  color: #666;
+  font-weight: 400;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.third-text {
+  flex-direction: row;
+}
+
+.arrow {
+  display: inline-block;
+  margin-left: 10px;
+  animation: arrowMove 1s ease-in-out infinite alternate;
+  font-size: 20px;
+  color: #666;
+}
+
+/* 화살표 애니메이션 */
+@keyframes arrowMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
 </style>
